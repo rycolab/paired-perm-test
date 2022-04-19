@@ -7,6 +7,14 @@ from pairedpermtest.utils import exact_acc
 
 @jit(nopython=True, nogil=True, cache=True)
 def pmf(xs, ys):
+    """
+    Compute the exact PMF for the paired permutation test in difference of accuracy
+    This method uses a dictionary to help with sparsity.
+    Runs in O(LN^2) time
+    :param xs: accuracy scores for system A
+    :param ys: accuracy scores for system B
+    :return: PMF distribution for paired permutation test
+    """
     T = len(xs)
     W_old: Dict[int, float] = {0: 1.0}
     W_new: Dict[int, float] = {0: 0.0}
@@ -27,6 +35,14 @@ def pmf(xs, ys):
 
 @jit(nopython=True, nogil=True, cache=True)
 def perm_test(xs, ys):
+    """
+    Run exact paired permutation test on difference in accuracy.
+    Uses dictionary to store PMF (see function pmf).
+    Runs in O(LN^2) time
+    :param xs: accuracy scores for system A
+    :param ys: accuracy scores for system B
+    :return: exact p-value  for paired permutation test
+    """
     observed = np.abs(np.sum(xs - ys))
     P: Dict[int, float] = pmf(xs, ys)
     p = 0.0
@@ -38,6 +54,14 @@ def perm_test(xs, ys):
 
 @jit(nopython=True, nogil=True, cache=True)
 def pmf_array(xs, ys, max_diff):
+    """
+    Compute the exact PMF for the paired permutation test in difference of accuracy
+    This method uses an array to support fast loops/access.
+    Runs in O(LN^2) time
+    :param xs: accuracy scores for system A
+    :param ys: accuracy scores for system B
+    :return: PMF distribution for paired permutation test
+    """
     N = len(xs)
     W_old = np.zeros(max_diff * N * 2 + 1)
     W_old[max_diff * N] = 1.0
@@ -56,6 +80,14 @@ def pmf_array(xs, ys, max_diff):
 
 @jit(nopython=True, nogil=True, cache=True)
 def perm_test_array(xs, ys):
+    """
+    Run exact paired permutation test on difference in accuracy.
+    Uses array to store PMF (see function pmf_array).
+    Runs in O(LN^2) time
+    :param xs: accuracy scores for system A
+    :param ys: accuracy scores for system B
+    :return: exact p-value  for paired permutation test
+    """
     N = len(xs)
     observed = np.abs(np.sum(xs - ys))
     max_diff = np.max(np.abs(xs - ys))

@@ -7,6 +7,13 @@ from pairedpermtest.utils import f1, exact_f1
 
 @jit(nopython=True, nogil=True, cache=True)
 def pmf(xs, ys):
+    """
+    Compute the exact PMF for the paired permutation test in difference of F1 scores
+    Runs in O(L^4 N^5) time
+    :param xs: true positive and incorrect scores for system A
+    :param ys: true positive and incorrect scores for system B
+    :return: PMF distribution for paired permutation test
+    """
     T = len(xs)
     W_old: Dict[Tuple[int, int, int, int], float] = {(0, 0, 0, 0): 1.0}
     W_new: Dict[Tuple[int, int, int, int], float] = {(0, 0, 0, 0): 0.0}
@@ -29,6 +36,13 @@ def pmf(xs, ys):
 
 
 def perm_test(xs, ys):
+    """
+    Run exact paired permutation test on difference in F1 scores.
+    Runs in O(L^4 N^5) time
+    :param xs: accuracy scores for system A
+    :param ys: accuracy scores for system B
+    :return: exact p-value  for paired permutation test
+    """
     def f1_delta(tp_x, tp_y, i_x, i_y):
         x = tp_x / (tp_x + 0.5 * i_x) if tp_x + i_x != 0 else 0
         y = tp_y / (tp_y + 0.5 * i_y) if tp_y + i_y != 0 else 0
