@@ -3,6 +3,19 @@ import numpy as np
 from numba import jit
 
 
+def fast_multi_product(ps):
+    """
+    Perform fast recursive multiplication on a list of items.
+    :param ps: list of objects
+    :return: product of objects
+    """
+    N = len(ps)
+    if N == 1:
+        return ps[0]
+    else:
+        return fast_multi_product(ps[:N//2]) * fast_multi_product(ps[N//2:])
+
+
 def exact_acc(xs, ys, statistic=np.mean):
     """
     Compute the exact p-value for the paired permutation test for accuracy.
