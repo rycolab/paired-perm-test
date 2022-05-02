@@ -3,6 +3,9 @@ from scipy.signal import convolve
 
 from pairedpermtest.utils import fast_multi_product
 
+
+TOL = 1e-8
+
 class shifted_array:
     "Dense array with bookkeeping for shift"
     def __init__(self, x, s):
@@ -26,10 +29,10 @@ class shifted_array:
         :return: self * q
         """
         x = convolve(self.x, q.x)
-        n = len(x)
-        x = np.trim_zeros(x, 'f')
-        s = n - len(x)
-        return shifted_array(np.trim_zeros(x, 'f'), self.s + q.s - s)
+        d = np.where(x > TOL)
+        s = np.min(d)
+        e = np.max(d)
+        return shifted_array(x[s:e + 1], self.s + q.s - s)
 
     @classmethod
     def from_sparse(cls, a):

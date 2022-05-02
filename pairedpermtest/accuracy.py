@@ -4,6 +4,9 @@ from numba import jit
 from pairedpermtest.utils import exact_acc
 
 
+TOL = 1e-8
+
+
 @jit(nopython=True, nogil=True, cache=True)
 def pmf(xs, ys, max_diff):
     """
@@ -20,7 +23,7 @@ def pmf(xs, ys, max_diff):
     W_new = np.zeros(max_diff * N * 2 + 1)
     for n in range(0, N):
         for diff, val in enumerate(W_old):
-            if not val:
+            if val < TOL:
                 continue
             for (x, y) in [(xs[n], ys[n]), (ys[n], xs[n])]:
                 d = diff + x - y
