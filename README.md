@@ -41,6 +41,8 @@ python pairedpermtest/run.py --input [input_file] --metric [acc/f1] --MC [K] --d
 
 `--metric` selects your test statistic.
 Currently we offer a difference in accuracy (`acc`) and a difference in F1 scores (`F1`).
+NOTE: the permutation test on a difference in F1 scores takes some time for large inputs.
+Please only use on small datasets.
 
 `--MC` is an optional argument to run a Monte Carlo approximation
 instead of an exact algorithm. The argument to this is the
