@@ -150,17 +150,6 @@ def load_dense(x):
     return M(y).to_dense()
 
 
-def synthetic_data(N, C=5):
-    xs_tp = np.random.randint(0, C, size=N)
-    xs_i = np.random.randint(0, C, size=N)
-    ys_tp = np.random.randint(0, C, size=N)
-    ys_i = np.random.randint(0, C, size=N)
-
-    xs = [f1state(xs_tp[n], xs_i[n]) for n in range(N)]
-    ys = [f1state(ys_tp[n], ys_i[n]) for n in range(N)]
-    return xs, ys
-
-
 def _test_f1(N):
     xs = np.random.randint(0, 5, (N, 2))
     ys = np.random.randint(0, 5, (N, 2))
