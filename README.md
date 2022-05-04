@@ -2,7 +2,7 @@
 This library contains implementations for an exact and efficient algorithm to
 execute the paired-permutation test. Specifically, the library contains command-line
 tools to run the test in the case of a difference of accuracy and a difference in F1 scores.
-This library is the code-base for ["Exact Paired-Permutation Testing for Structured Test Statistics"]().
+This library is the code-base for ["Exact Paired-Permutation Testing for Structured Test Statistics"](https://arxiv.org/abs/2205.01416).
 
 ## Citation
 
@@ -15,8 +15,10 @@ Please cite as:
     author = "Zmigrod, Ran  and
       Vieira, Tim  and
       Cotterell, Ryan",
-    year = "2022"
+    year = "2022",
     publisher = "Association for Computational Linguistics",
+    booktitle = "Proceedings of the 2022 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies",
+    url = "https://arxiv.org/abs/2205.01416",
 }
 ```
 
